@@ -1,0 +1,100 @@
+.config-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.config-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.config-subtitle {
+  text-align: center;
+  color: gray;
+  margin-bottom: 30px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.form-grid .full-width {
+  grid-column: span 2;
+}
+
+.editable {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.editable input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #eee;
+}
+
+.edit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.save-btn {
+  margin-top: 25px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  text-align: center;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logout-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.logout-btn {
+  margin-top: 10px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}

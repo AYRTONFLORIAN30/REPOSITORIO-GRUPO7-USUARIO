@@ -1,0 +1,81 @@
+/* src/styles/Horarios.css */
+.horarios-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.horarios-content h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.horarios-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.importar-btn {
+  background-color: #0099ff;
+  border: none;
+  color: white;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.sincronizar-btn {
+  background-color: #ccc;
+  color: #555;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+.horarios-filtros {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.horarios-filtros select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f0f8ff;
+  font-weight: bold;
+}
+
+.horarios-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.horarios-tabla th, .horarios-tabla td {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.sin-horarios {
+  text-align: center;
+  color: #999;
+  padding: 2rem;
+}
+
+.no-horarios-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #999;
+}

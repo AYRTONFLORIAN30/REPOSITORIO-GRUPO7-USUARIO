@@ -1,0 +1,16 @@
+/* src/styles/Calendario.css */
+.calendario {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .calendario h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .calendario p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  

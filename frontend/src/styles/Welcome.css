@@ -1,0 +1,59 @@
+/* src/styles/Welcome.css */
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .welcome-message {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .check-animation {
+    font-size: 4rem;
+    color: #32CD32; /* Verde oscuro */
+    opacity: 0;
+    transform: scale(0);
+    animation: checkAppear 1s forwards;
+    margin-right: 0.5rem;
+  }
+  
+  .text-animation {
+    opacity: 0;
+    animation: textAppear 1s 0.5s forwards;
+  }
+  
+  @keyframes checkAppear {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes textAppear {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
