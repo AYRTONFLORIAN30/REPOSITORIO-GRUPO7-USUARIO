@@ -80,7 +80,7 @@ app.post('/sync-calendar', async (req, res) => {
 
       const diaMatch = evento.Día.match(/\d+/);
       const diaNumero = diaMatch ? diaMatch[0].padStart(2, '0') : '01';
-      const fecha = `2025-04-${diaNumero}`;
+      const fecha = `2025-06-${diaNumero}`;
 
       const event = {
         summary: evento.Clase,
@@ -146,6 +146,49 @@ app.post('/api/usuarios', (req, res) => {
     }
   });
 });
+
+app.post('/api/sincronizaciones', (req, res) => {
+  const { usuario_id, exito } = req.body;
+
+  if (!usuario_id || typeof exito === 'undefined') {
+    return res.status(400).json({ error: 'Datos incompletos' });
+  }
+
+  const query = 'INSERT INTO sincronizaciones (usuario_id, exito) VALUES (?, ?)';
+
+  db.query(query, [usuario_id, exito], (err, result) => {
+    if (err) {
+      console.error('❌ Error al registrar sincronización:', err);
+      return res.status(500).json({ error: 'Error al registrar' });
+    }
+
+    res.status(201).json({ message: 'Sincronización registrada' });
+  });
+});
+
+app.get('/api/sincronizaciones/:usuario_id', (req, res) => {
+  const { usuario_id } = req.params;
+
+  const query = `
+    SELECT fecha, exito
+    FROM sincronizaciones
+    WHERE usuario_id = ?
+    ORDER BY fecha DESC
+    LIMIT 10
+  `;
+
+  db.query(query, [usuario_id], (err, rows) => {
+    if (err) {
+      console.error('❌ Error al obtener historial:', err);
+      return res.status(500).json({ error: 'Error en consulta' });
+    }
+
+    res.json(rows);
+  });
+});
+
+
+
 
 
 // 🚀 Iniciar servidor
