@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useGoogleLogin } from '@react-oauth/google';
 import '../styles/Login.css';
-import { FaUser, FaLock } from 'react-icons/fa';
 
 function Login() {
   const { setUser } = useUser();
@@ -35,11 +34,7 @@ function Login() {
         await fetch('http://localhost:5000/api/usuarios', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            google_id: userData.sub,
-            name: userData.name,
-            email: userData.email,
-          }),
+          body: JSON.stringify(usuario),
         });
 
         navigate('/welcome');
@@ -50,40 +45,28 @@ function Login() {
     },
     onError: () => alert('❌ Fallo al iniciar sesión con Google'),
     flow: 'implicit',
+    redirectUri: 'https://repositorio-grupo7-usuario-1.onrender.com/callback', // Asegúrate de que esta URI coincida con la que configuraste en la Google Cloud Console
   });
 
   return (
     <div className="login">
       <div className="login-box">
-        <div className="avatar-placeholder"></div>
+        <div className="logo">T</div>
 
         <form className="form">
-          <div className="input-group">
-            <FaUser className="icon" />
-            <input type="text" placeholder="USUARIO" disabled />
-          </div>
-          <div className="input-group">
-            <FaLock className="icon" />
-            <input type="password" placeholder="************" disabled />
-          </div>
-          <button className="login-btn" disabled>INICIAR SESIÓN</button>
+          <input type="text" placeholder="Código Estudiantil" disabled />
+          <input type="password" placeholder="Contraseña" disabled />
+          <button type="submit" className="login-btn" disabled>
+            Iniciar sesión
+          </button>
         </form>
 
-        <div className="google-section">
-          <button onClick={login} className="login-btn-google">
-            Iniciar sesión con Google
-          </button>
-        </div>
+        <div className="divider">o continua con</div>
 
-        <div className="options">
-          <label>
-            <input type="checkbox" disabled /> Recordar contraseña
-          </label>
-          <button
-            className="link-button"
-            onClick={() => alert('Función no implementada')}
-          >
-            ¿Olvidó su contraseña? <span>Click aquí</span>
+        <div className="google-login">
+          <button onClick={login} className="google-btn">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" />
+            Google
           </button>
         </div>
       </div>

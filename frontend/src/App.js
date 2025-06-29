@@ -18,9 +18,10 @@ import Horarios from './pages/Horarios';
 import Calendario from './pages/Calendario';
 import Configuracion from './pages/Configuracion';
 import ImportarHorario from './pages/ImportarHorario';
-import HorariosImportados from './pages/HorariosImportados'; 
+import HorariosImportados from './pages/HorariosImportados';
 import SincronizacionGoogle from './pages/SincronizacionGoogle';
 import Callback from './pages/Callback';
+import Reportes from './pages/Reportes';  // Importa el componente de Reportes
 
 import { UserProvider } from './context/UserContext';
 
@@ -46,9 +47,8 @@ function App() {
             <Route path="/sync" element={<SincronizacionGoogle />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/importar-horario" element={<ImportarHorario />} />
-            <Route path="/horarios-importados" element={<HorariosImportados />} /> {/* ✅ Nueva ruta */}
-            <Route path="/sync" element={<SincronizacionGoogle />} />
-
+            <Route path="/horarios-importados" element={<HorariosImportados />} />
+            <Route path="/reportes" element={<Reportes />} /> {/* Ruta para Reportes */}
           </Routes>
         </Router>
       </UserProvider>
