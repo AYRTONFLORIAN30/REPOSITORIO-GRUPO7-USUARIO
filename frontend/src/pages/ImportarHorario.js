@@ -30,7 +30,11 @@ function ImportarHorario() {
 
       if (response.ok) {
         const data = await response.json();
-        setDatosTemporales(data);
+
+        // Filtrar duplicados antes de guardar los datos
+        const uniqueData = filterDuplicates(data);
+        setDatosTemporales(uniqueData);
+        localStorage.setItem('horarios', JSON.stringify(uniqueData));
         setSubidoCorrectamente(true);
       } else {
         alert('Error al subir el archivo');
@@ -39,6 +43,20 @@ function ImportarHorario() {
       console.error('Error:', err);
       alert('Hubo un error al subir el archivo.');
     }
+  };
+
+  const filterDuplicates = (data) => {
+    return data.filter((value, index, self) => {
+      return (
+        index ===
+        self.findIndex(
+          (t) =>
+            t.Clase === value.Clase &&
+            t.Día === value.Día &&
+            t.Hora === value.Hora
+        )
+      );
+    });
   };
 
   const handleCargar = () => {

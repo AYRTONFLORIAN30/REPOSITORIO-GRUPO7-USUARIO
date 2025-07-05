@@ -3,13 +3,17 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../assets/tecsup-campus.png');
+  background: rgba(0, 0, 0, 0.5) url('../assets/tecsup-campus.png') no-repeat center center; /* Fondo oscurecido para visibilidad */
   background-size: cover;
+<<<<<<< HEAD
   background-position: center;
+=======
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
   background-attachment: fixed;
 }
 
 .login-box {
+<<<<<<< HEAD
   background: #ffffff; /* Fondo blanco sólido */
   padding: 3rem;
   border-radius: 12px;
@@ -27,18 +31,47 @@
   font-weight: bold;
   color: #1877f2;
   margin-bottom: 30px;
+=======
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 10vh;
+}
+
+.logo {
+  font-size: 56px;
+  font-weight: bold;
+  color: #1877f2;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 }
 
 .form {
   width: 100%;
+<<<<<<< HEAD
 }
 
 .input-group {
   margin-bottom: 1.5rem; /* Aumentar el espacio entre los campos */
+=======
+  max-width: 350px; /* Ajustar el ancho del formulario */
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 }
 
 .input-group input {
   width: 100%;
+<<<<<<< HEAD
   padding: 12px;
   font-size: 1rem;
   color: #333;
@@ -51,17 +84,38 @@
 
 .input-group input:focus {
   border-color: #1877f2; /* Color de borde cuando se enfoca */
+=======
+  padding: 14px;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  border: 2px solid #00bfff;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  color: #333;
+  background-color: #f9f9f9;
+  max-width: 350px; /* Ajustar el ancho de los campos de entrada */
+}
+
+.input-group input:focus {
+  border-color: #1877f2;
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 }
 
 .login-btn {
+  padding: 14px;
   width: 100%;
+<<<<<<< HEAD
   padding: 12px;
+=======
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
   background-color: #1877f2;
   color: white;
-  border: none;
-  border-radius: 6px;
   font-weight: bold;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
   margin-bottom: 1rem;
   transition: background-color 0.3s;
 }
@@ -71,9 +125,15 @@
 }
 
 .divider {
+<<<<<<< HEAD
   margin: 20px 0;
   font-size: 14px;
   color: #333;
+=======
+  margin: 25px 0;
+  font-size: 14px;
+  color: #777;
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 }
 
 .google-login {
@@ -84,6 +144,7 @@
 .google-btn {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: 8px;
   padding: 10px 20px;
   background: white;
@@ -104,18 +165,33 @@
   color: #f0f0f0;
 }
 
+=======
+  padding: 14px 25px;
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.google-btn img {
+  margin-right: 12px;
+  width: 20px;
+}
+
+.options {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 .options span {
   text-decoration: underline;
   font-weight: bold;
-}
-
-.link-button {
-  background: none;
-  border: none;
-  color: white;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 0;
 }

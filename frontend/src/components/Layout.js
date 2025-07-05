@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { FaFilePdf } from 'react-icons/fa'; // Ícono para PDF
 import '../styles/Dashboard.css'; // ✅ CORRECTO
 
 function Layout({ children }) {
@@ -30,6 +31,14 @@ function Layout({ children }) {
           </button>
           <button className={location.pathname === '/configuracion' ? 'active' : ''} onClick={() => navigate('/configuracion')}>
             ⚙️ Configuración
+          </button>
+
+          {/* Botón para generar el reporte, visible siempre */}
+          <button 
+            className={location.pathname === '/reportes' ? 'active' : ''}
+            onClick={() => navigate('/reportes')}
+          >
+            <FaFilePdf /> Generar Reporte de Horarios
           </button>
         </nav>
       </aside>

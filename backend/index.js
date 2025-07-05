@@ -90,6 +90,7 @@ app.post('/sync-calendar', async (req, res) => {
       const diaMatch = evento.Día.match(/(\d+)/);
       const mesMatch = evento.Día.match(/(junio|julio)/i); // Asegurarse que el mes sea correcto
       const diaNumero = diaMatch ? diaMatch[0].padStart(2, '0') : '01';
+<<<<<<< HEAD
       const mesNumero = meses[mesMatch ? mesMatch[0].toLowerCase() : 'junio'];
 
       const fecha = `2025-${mesNumero}-${diaNumero}`;
@@ -112,6 +113,9 @@ app.post('/sync-calendar', async (req, res) => {
 
       // Si no está duplicado, agregar la clave al array de eventos
       eventosExistentes.push(eventoClave);
+=======
+      const fecha = `2025-06-${diaNumero}`;
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 
       const event = {
         summary: evento.Clase,
@@ -220,6 +224,11 @@ app.get('/api/sincronizaciones/:usuario_id', (req, res) => {
 });
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> b73f9a20746ad060dfd1b96eb45c75a1d0c5da15
 
 // 🚀 Iniciar servidor
 app.listen(PORT, () => {

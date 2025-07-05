@@ -9,7 +9,22 @@ function HorariosImportados() {
   useEffect(() => {
     const data = localStorage.getItem('horarios');
     if (data) {
-      setHorarios(JSON.parse(data));
+      let horariosArray = JSON.parse(data);
+
+      // Filtrar duplicados antes de guardar los datos
+      const uniqueHorarios = horariosArray.filter((value, index, self) => {
+        return (
+          index ===
+          self.findIndex(
+            (t) =>
+              t.Clase === value.Clase &&
+              t.Día === value.Día &&
+              t.Hora === value.Hora
+          )
+        );
+      });
+
+      setHorarios(uniqueHorarios);
     }
   }, []);
 

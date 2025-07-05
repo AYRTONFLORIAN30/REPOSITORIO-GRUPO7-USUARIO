@@ -45,6 +45,7 @@ function Login() {
     },
     onError: () => alert('❌ Fallo al iniciar sesión con Google'),
     flow: 'implicit',
+    redirectUri: 'https://repositorio-grupo7-usuario-1.onrender.com/callback', // Asegúrate de que esta URI coincida con la que configuraste en la Google Cloud Console
   });
 
   return (
