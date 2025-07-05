@@ -1,4 +1,3 @@
-// src/pages/ImportarHorario.js
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -43,6 +42,8 @@ function ImportarHorario() {
   };
 
   const handleCargar = () => {
+    // ✅ Guardar en localStorage
+    localStorage.setItem('eventos_sincronizados', JSON.stringify(datosTemporales));
     navigate('/horarios', { state: { horarios: datosTemporales } });
   };
 

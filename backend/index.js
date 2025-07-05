@@ -40,7 +40,7 @@ app.post('/upload-csv', upload.single('archivo'), (req, res) => {
       const item = {
         Clase: clean(row['Clase']),
         Profesor: clean(row['Profesor']),
-        Día: clean(row['Día']),
+        Día: clean(row['Día'] || row['Dia']),
         Hora: clean(row['Hora']),
         Aula: clean(row['Aula']),
       };
@@ -73,14 +73,45 @@ app.post('/sync-calendar', async (req, res) => {
 
     const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
 
+    const meses = {
+      enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', 
+      julio: '07', agosto: '08', septiembre: '09', octubre: '10', noviembre: '11', diciembre: '12'
+    };
+
+    // Array para almacenar las claves de eventos ya procesados
+    const eventosExistentes = [];
+
     for (const evento of eventos) {
       const [horaInicioRaw, horaFinRaw] = evento.Hora.split('-');
       const horaInicio = convertirHora(horaInicioRaw);
       const horaFin = convertirHora(horaFinRaw);
 
-      const diaMatch = evento.Día.match(/\d+/);
+      // Extraer el día, mes y año desde el CSV
+      const diaMatch = evento.Día.match(/(\d+)/);
+      const mesMatch = evento.Día.match(/(junio|julio)/i); // Asegurarse que el mes sea correcto
       const diaNumero = diaMatch ? diaMatch[0].padStart(2, '0') : '01';
-      const fecha = `2025-04-${diaNumero}`;
+      const mesNumero = meses[mesMatch ? mesMatch[0].toLowerCase() : 'junio'];
+
+      const fecha = `2025-${mesNumero}-${diaNumero}`;
+
+      // Crear una clave única para el evento (basado en la fecha y hora de inicio)
+      const eventoClave = `${fecha}T${horaInicio}:00`;
+
+      // Verificar si el evento ya fue sincronizado anteriormente en Google Calendar
+      const response = await calendar.events.list({
+        calendarId: 'primary',
+        q: evento.Clase,  // Buscar eventos con el mismo nombre
+        timeMin: `${fecha}T00:00:00Z`, // Buscar solo en el día específico
+        timeMax: `${fecha}T23:59:59Z`,
+      });
+
+      // Si ya existe un evento con el mismo nombre en la misma fecha, mostrar un error
+      if (response.data.items.length > 0) {
+        return res.status(400).send("Este horario ya ha sido sincronizado con Google Calendar.");
+      }
+
+      // Si no está duplicado, agregar la clave al array de eventos
+      eventosExistentes.push(eventoClave);
 
       const event = {
         summary: evento.Clase,
@@ -108,6 +139,7 @@ app.post('/sync-calendar', async (req, res) => {
     res.status(500).send('Error al sincronizar eventos');
   }
 });
+
 
 // 🔧 Ruta para actualizar perfil real desde Google OAuth
 app.put('/api/usuarios/:google_id', (req, res) => {
@@ -146,6 +178,47 @@ app.post('/api/usuarios', (req, res) => {
     }
   });
 });
+
+app.post('/api/sincronizaciones', (req, res) => {
+  const { usuario_id, exito } = req.body;
+
+  if (!usuario_id || typeof exito === 'undefined') {
+    return res.status(400).json({ error: 'Datos incompletos' });
+  }
+
+  const query = 'INSERT INTO sincronizaciones (usuario_id, exito) VALUES (?, ?)';
+
+  db.query(query, [usuario_id, exito], (err, result) => {
+    if (err) {
+      console.error('❌ Error al registrar sincronización:', err);
+      return res.status(500).json({ error: 'Error al registrar' });
+    }
+
+    res.status(201).json({ message: 'Sincronización registrada' });
+  });
+});
+
+app.get('/api/sincronizaciones/:usuario_id', (req, res) => {
+  const { usuario_id } = req.params;
+
+  const query = `
+    SELECT fecha, exito
+    FROM sincronizaciones
+    WHERE usuario_id = ?
+    ORDER BY fecha DESC
+    LIMIT 10
+  `;
+
+  db.query(query, [usuario_id], (err, rows) => {
+    if (err) {
+      console.error('❌ Error al obtener historial:', err);
+      return res.status(500).json({ error: 'Error en consulta' });
+    }
+
+    res.json(rows);
+  });
+});
+
 
 
 // 🚀 Iniciar servidor

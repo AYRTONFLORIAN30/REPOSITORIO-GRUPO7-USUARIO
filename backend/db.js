@@ -1,10 +1,11 @@
 const mysql = require('mysql');
+require('dotenv').config(); // Asegúrate de cargar .env aquí si aún no lo haces en index.js
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',       // o tu usuario
-  password: '',       // o tu contraseña si tienes
-  database: 'usuarios_app'
+  host: process.env.DB_HOST || 'host.docker.internal', // Usará 'host.docker.internal' en Docker
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'usuarios_app'
 });
 
 db.connect((err) => {

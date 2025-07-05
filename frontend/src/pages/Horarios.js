@@ -1,9 +1,9 @@
-// src/pages/Horarios.js
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import '../styles/Horarios.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SuccessModal from '../components/SuccessModal';
+import ErrorModal from '../components/ErrorModal'; // nuevo
 
 function Horarios() {
   const navigate = useNavigate();
@@ -11,6 +11,8 @@ function Horarios() {
   const horarios = location.state?.horarios || [];
 
   const [showModal, setShowModal] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSync = async () => {
     const storedToken = localStorage.getItem('google_token');
@@ -27,20 +29,26 @@ function Horarios() {
         body: JSON.stringify({ token: storedToken, eventos: horarios }),
       });
 
+      const texto = await response.text();
+      console.log('🔁 Respuesta:', response.status, texto);
+
       if (response.ok) {
         const horaActual = new Date().toLocaleTimeString('es-PE', {
-          hour: '2-digit', minute: '2-digit'
+          hour: '2-digit',
+          minute: '2-digit',
         });
 
         localStorage.setItem('eventos_sincronizados', JSON.stringify(horarios));
-        localStorage.setItem('ultima_sincronizacion', horaActual); // ✅ hora exacta
+        localStorage.setItem('ultima_sincronizacion', horaActual);
         setShowModal(true);
       } else {
-        alert('Error al sincronizar eventos');
+        setErrorMsg(texto);
+        setShowError(true);
       }
     } catch (error) {
-      console.error('Error al sincronizar:', error);
-      alert('Hubo un problema al conectar con el servidor');
+      console.error('❌ Error de red:', error);
+      setErrorMsg('Hubo un problema al conectar con el servidor');
+      setShowError(true);
     }
   };
 
@@ -51,11 +59,21 @@ function Horarios() {
 
   return (
     <Layout>
+      {/* Modal de éxito */}
       {showModal && (
         <SuccessModal
-          titulo="Sincronización exitosa!"
+          titulo="¡Sincronización exitosa!"
           mensaje="Se completó la sincronización"
           onClose={handleContinuar}
+        />
+      )}
+
+      {/* Modal de error */}
+      {showError && (
+        <ErrorModal
+          titulo="No se pudo sincronizar"
+          mensaje={errorMsg}
+          onClose={() => setShowError(false)}
         />
       )}
 
